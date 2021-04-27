@@ -20,7 +20,6 @@ db.once('open', function(){
 });
 
 const User = require('./models/User');
-const { request, response } = require('express');
 
 const Rinat = new User({email: 'phony@email.com', books: [{
   name:'The Dispossesed',
@@ -47,7 +46,7 @@ function getAllUsers(request, response) {
   });
 };
 
-app.get('/User', getAllUsers);
+app.get('/books', getAllUsers);
 
 
 
