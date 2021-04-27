@@ -19,6 +19,38 @@ db.once('open', function(){
   console.log('mongoose is connected');
 });
 
+const User = require('./models/User');
+const { request, response } = require('express');
+
+const Rinat = new User({email: 'phony@email.com', books: [{
+  name:'The Dispossesed',
+  status: 'Used'
+},{
+  name: 'To the Lighthouse',
+  status: 'New'
+},{
+  name: 'Harry Potter and the Chamber of Secrets',
+  status: 'Beat up'
+}]});
+Rinat.save();
+
+function getAllUsers(request, response) {
+  const email = request.query.email;
+  console.log({email});
+
+  User.find({email}, (err, parents) => {
+    if(err) {
+      return console.error(err);
+    }
+    console.log({parents});
+    response.send(parents.length ? parents[0].books : 'no books');
+  });
+};
+
+app.get('/User', getAllUsers);
+
+
+
 app.get('/ping', (request, response) => {
   response.send('pong');
 });
