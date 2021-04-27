@@ -61,6 +61,6 @@ Estimated time to completion: 1hr
 
 Start time: 3:20pm
 
-End time:
+End time: 4:30
 
-Actual time of finish:
+Actual time of finish: 1:10hours
