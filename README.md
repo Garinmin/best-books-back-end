@@ -49,6 +49,6 @@ Estimated time to completion: 30 min
 
 Start time: 2.30pm
 
-End time: 
+End time: 2.57pm
 
-Actual time of finish:
+Actual time of finish: 27 min.
