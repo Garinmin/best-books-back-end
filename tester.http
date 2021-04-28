@@ -1,0 +1,12 @@
+GET http://localhost:3001/books/?email=phony@email.com HTTP/1.1
+content-type: json
+
+{
+  "_id": "60889c770bac73cea1fc73c4",
+  "name": "book's name",
+  "status": "condition"
+}
+
+###
+
+GET http://localhost:3001/ HTTP/1.1
