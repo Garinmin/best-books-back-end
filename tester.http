@@ -1,12 +1,19 @@
-GET http://localhost:3001/books/?email=phony@email.com HTTP/1.1
-content-type: json
-
-{
-  "_id": "60889c770bac73cea1fc73c4",
-  "name": "book's name",
-  "status": "condition"
-}
+GET http://localhost:3001/books?email=phony@email.com HTTP/1.1
+content-type: application/json
 
 ###
 
 GET http://localhost:3001/ HTTP/1.1
+
+###
+POST http://localhost:3001/books?email=phony@email.com HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Js101",
+  "status": "Mint condition"
+}
+
+###
+DELETE http://localhost:3001/books/1?email=phony@email.com HTTP/1.1
+
