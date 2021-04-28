@@ -27,13 +27,15 @@ db.once('open', function(){
 const UserModel = require('./models/User');
 
 async function getAllUsers(request, response) {
-  const email = request.query.email;
-  console.log({email});
-
-  await UserModel.find({email}, (err, users) => {
-    console.log({users});
-    response.send(users[0].books);
-  });
+  try {
+    await UserModel.find({}, (err, users) => {
+      console.log({users});
+      response.send(users);
+    });
+  }
+  catch (error) {
+    response.status(500).send({message: error});
+  }
 }
 
 app.get('/books', getAllUsers);
@@ -42,7 +44,7 @@ app.post('/books', async (request, response) => {
   const books = request.body;
   const email = request.query.email;
 
-  await UserModel.find({email}, (err, users) =>{
+  try {await UserModel.find({email}, (err, users) =>{
     if(users.length) {
       const currentUser = users[0];
       const currentBooks = currentUser.books;
@@ -56,6 +58,10 @@ app.post('/books', async (request, response) => {
       response.send('no user found');
     }
   });
+  }
+  catch (error) {
+    response.status(400).send({message: error});
+  }
 });
 
 app.delete('/books/:index', async (request, response) => {
