@@ -44,7 +44,7 @@ function getAllUsers(request, response) {
     console.log({parents});
     response.send(parents.length ? parents[0].books : 'no books');
   });
-};
+}
 
 app.get('/books', getAllUsers);
 
