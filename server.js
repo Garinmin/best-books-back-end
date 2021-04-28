@@ -6,6 +6,7 @@ require('dotenv').config();
 const cors = require('cors');
 
 app.use(cors());
+app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
@@ -19,32 +20,29 @@ db.once('open', function(){
   console.log('mongoose is connected');
 });
 
-const User = require('./models/User');
+const UserModel = require('./models/User');
 
-const Rinat = new User({email: 'phony@email.com', books: [{
-  name:'The Dispossesed',
-  status: 'Used'
-},{
-  name: 'To the Lighthouse',
-  status: 'New'
-},{
-  name: 'Harry Potter and the Chamber of Secrets',
-  status: 'Beat up'
-}]});
-Rinat.save();
+// const Rinat = new User({email: 'phony@email.com', books: [{
+//   name:'The Dispossesed',
+//   status: 'Used'
+// },{
+//   name: 'To the Lighthouse',
+//   status: 'New'
+// },{
+//   name: 'Harry Potter and the Chamber of Secrets',
+//   status: 'Beat up'
+// }]});
+// Rinat.save();
 
-function getAllUsers(request, response) {
-  const email = request.query.email;
+async function getAllUsers(request, response) {
+  const { email } = request.query.email;
   console.log({email});
 
-  User.find({email}, (err, parents) => {
-    if(err) {
-      return console.error(err);
-    }
-    console.log({parents});
-    response.send(parents.length ? parents[0].books : 'no books');
+  await UserModel.find(email, (err, users) => {
+    response.send(users[0].books);
   });
-};
+
+}
 
 app.get('/books', getAllUsers);
 
