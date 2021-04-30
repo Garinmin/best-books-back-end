@@ -3,7 +3,7 @@ const Book = {};
 const User = require ('../models/User');
 
 Book.getAllBooks = async (request, response) => {
-  const email = request.qyery.email;
+  const email = request.query.email;
   await User.find ({ email}, (err, users) => {
     if (err) console.error(err);
     if (!users.length) {
@@ -16,7 +16,8 @@ Book.getAllBooks = async (request, response) => {
 };
 
 Book.createBook = async (request, response) => {
-  const { newBook, email } = request.body;
+  console.log(request.body);
+  const { books, email } = request.body;
   await User.find({ email }, (err, users) => {
     if (err) console.error(err);
     if (!users.length) {
@@ -24,8 +25,12 @@ Book.createBook = async (request, response) => {
       return;
     }
     const user = users[0];
-    user.gifts.push(newBook);
+    const newBook = books[0];
+
+    user.books.push(newBook);
     user.save();
+
+    console.log(user.books);
     response.send(user.books);
   });
 };
@@ -37,10 +42,10 @@ Book.deleteBook = async (request, response) => {
   await User.find({ email }, (err, users) => {
     if (err) console.error(err);
     const user = users[0];
-    const newBookArray = user.bookss.filter((_, i) => i !== index);
-    user.bookss = newBookArray;
+    const newBookArray = user.books.filter((_, i) => i !== index);
+    user.books = newBookArray;
     user.save();
-    response.send('success!');
+    response.send(user.books);
   });
 };
 

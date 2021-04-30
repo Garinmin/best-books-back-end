@@ -33,5 +33,20 @@ app.delete('/books/:index', Book.deleteBook);
 
 app.put('/books/:index', Book.updateBook);
 
+const User = require('./models/User');
+
+//==================Seed Data===============
+
+const Rinat = new User({email: 'phony@email.com', books: [{
+  name:'The Dispossesed',
+  status: 'Used'
+},{
+  name: 'To the Lighthouse',
+  status: 'New'
+},{
+  name: 'Harry Potter and the Chamber of Secrets',
+  status: 'Beat up'
+}]});
+
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
